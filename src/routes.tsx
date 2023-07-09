@@ -141,13 +141,6 @@ const routes = [
     path: "sign-in",
     icon: "",
     component: <SignIn />,
-  },
-  // {
-  //   name: "RTL Admin",
-  //   layout: "/rtl",
-  //   path: "rtl",
-  //   icon: <MdHome className="h-6 w-6" />,
-  //   component: <RTLDefault />,
-  // },
+  }
 ];
 export default routes;
