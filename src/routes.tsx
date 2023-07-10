@@ -32,6 +32,13 @@ import TeacherManagement from "views/admin/teacherManagement";
 import StudentManagement from "views/admin/studentManagement";
 import Subjects from "views/admin/subjects";
 import Menus from "views/admin/menus";
+import Approvals from "views/admin/approvals";
+import TestPapers from "views/admin/testPapers";
+import TestResults from "views/admin/testResults";
+import Assign from "views/admin/assign";
+import ExamTypes from "views/admin/examTypes";
+import Orders from "views/admin/orders";
+import Troubles from "views/admin/troubles";
 
 
 const routes = [
@@ -91,51 +98,51 @@ const routes = [
   {
     name: "Approvals",
     layout: "/admin",
-    path: "profile",
+    path: "approvals",
     icon: <MdOutlineVerifiedUser className="h-6 w-6" />,
-    component: <Profile />,
+    component: <Approvals />,
   },
   {
     name: "Test Papers",
     layout: "/admin",
-    path: "profile",
+    path: "test-papers",
     icon: <MdOutlineFeed className="h-6 w-6" />,
-    component: <Profile />,
+    component: <TestPapers />,
   },
   {
     name: "Test Results",
     layout: "/admin",
-    path: "profile",
+    path: "test-results",
     icon: <MdFactCheck className="h-6 w-6" />,
-    component: <Profile />,
+    component: <TestResults />,
   },
   {
     name: "Assign",
     layout: "/admin",
-    path: "profile",
+    path: "assign",
     icon: <MdEditCalendar className="h-6 w-6" />,
-    component: <Profile />,
+    component: <Assign />,
   },
   {
     name: "Exam Types",
     layout: "/admin",
-    path: "profile",
+    path: "exam-types",
     icon: <MdOutlineArticle className="h-6 w-6" />,
-    component: <Profile />,
+    component: <ExamTypes />,
   },
   {
     name: "Orders",
     layout: "/admin",
-    path: "profile",
+    path: "orders",
     icon: <MdOutlineShoppingCart className="h-6 w-6" />,
-    component: <Profile />,
+    component: <Orders />,
   },
   {
     name: "Troubles",
     layout: "/admin",
     path: "profile",
     icon: <MdLayers className="h-6 w-6" />,
-    component: <Profile />,
+    component: <Troubles />,
   },
   {
     name: "Sign In",
@@ -144,12 +151,6 @@ const routes = [
     icon: "",
     component: <SignIn />,
   },
-  // {
-  //   name: "RTL Admin",
-  //   layout: "/rtl",
-  //   path: "rtl",
-  //   icon: <MdHome className="h-6 w-6" />,
-  //   component: <RTLDefault />,
-  // },
+
 ];
 export default routes;
