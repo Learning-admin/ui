@@ -2,6 +2,7 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 import RtlLayout from "layouts/rtl";
 import AdminLayout from "layouts/admin";
+import StudentLayout from "layouts/student";
 import AuthLayout from "layouts/auth";
 import { useEffect } from "react";
 
@@ -17,6 +18,7 @@ const App = () => {
     <Routes>
       <Route path="auth/*" element={<AuthLayout />} />
       <Route path="admin/*" element={<AdminLayout />} />
+      <Route path="student/*"  element={<StudentLayout/>}/>
       <Route path="rtl/*" element={<RtlLayout />} />
       <Route path="/" element={<Navigate to="/admin" replace />} />
     </Routes>

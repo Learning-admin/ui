@@ -4,18 +4,38 @@ import { HiX } from "react-icons/hi";
 import Links from "./components/Links";
 
 // import SidebarCard from "components/sidebar/componentsrtl/SidebarCard";
-import routes from "routes";
+import studentRoutes from "AllRoutes/studentRoutes";
+import routes from "AllRoutes/routes"
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Sidebar = (props: {
   open: boolean;
   onClose: React.MouseEventHandler<HTMLSpanElement>;
 }) => {
   const { open, onClose } = props;
+  const [currentRoutes, setCurrentRoutes] = useState<any>()
+
+
+
+  const { pathname } = useLocation()
+  // console.log(pathname.split("/"))
+  const route = pathname.split("/")
+
+  console.log(currentRoutes, 'route')
+
+  useEffect(() => {
+    if (route[1] === 'admin') setCurrentRoutes(routes)
+    if (route[1] === 'student') setCurrentRoutes(studentRoutes)
+
+
+
+  }, [])
+
   return (
     <div
-      className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:!bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${
-        open ? "translate-x-0" : "-translate-x-96"
-      }`}
+      className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:!bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${open ? "translate-x-0" : "-translate-x-96"
+        }`}
     >
       <span
         className="absolute top-4 right-4 block cursor-pointer xl:hidden"
@@ -33,13 +53,8 @@ const Sidebar = (props: {
       {/* Nav item */}
 
       <ul className="mb-auto pt-1">
-        <Links routes={routes} />
+        <Links routes={currentRoutes} />
       </ul>
-
-      {/* Free Horizon Card */}
-      {/* <div className="flex justify-center">
-        <SidebarCard />
-      </div> */}
 
       {/* Nav item end */}
     </div>

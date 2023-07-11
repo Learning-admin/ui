@@ -2,9 +2,6 @@ import React from "react";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
-import Profile from "views/admin/profile";
-import DataTables from "views/admin/tables";
-import RTLDefault from "views/rtl/default";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -54,7 +51,6 @@ const routes = [
     layout: "/admin",
     path: "teacher-management",
     icon: <MdAccountBox className="h-6 w-6" />,
-    // component: <NFTMarketplace />,
     component: <TeacherManagement/>,
     secondary: true,
   },
@@ -63,7 +59,6 @@ const routes = [
     layout: "/admin",
     icon: <MdOutlineBadge className="h-6 w-6" />,
     path: "student-management",
-    // component: <DataTables />,
     component: <StudentManagement/>
   },
   {
@@ -85,7 +80,6 @@ const routes = [
     layout: "/admin",
     path: "subjects",
     icon: <MdOutlineImportContacts className="h-6 w-6" />,
-    // component: <Profile />,
     component: <Subjects/>
   },
   {

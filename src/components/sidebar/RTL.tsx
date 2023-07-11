@@ -4,7 +4,7 @@ import { HiX } from "react-icons/hi";
 import Links from "./components/Links";
 
 import SidebarCard from "components/sidebar/components/SidebarCard";
-import routes from "routes";
+import routes from "AllRoutes/routes";
 
 const Sidebar = (props: {
   open: boolean;

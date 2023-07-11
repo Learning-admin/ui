@@ -1,22 +1,22 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "components/navbar";
 import Sidebar from "components/sidebar";
 import Footer from "components/footer/Footer";
-import routes from "routes";
+import routes from "AllRoutes/routes";
 
 export default function Admin(props: { [x: string]: any }) {
   const { ...rest } = props;
   const location = useLocation();
-  const [open, setOpen] = React.useState(true);
-  const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+  const [open, setOpen] = useState(true);
+  const [currentRoute, setCurrentRoute] = useState("Main Dashboard");
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("resize", () =>
       window.innerWidth < 1200 ? setOpen(false) : setOpen(true)
     );
   }, []);
-  React.useEffect(() => {
+  useEffect(() => {
     getActiveRoute(routes);
   }, [location.pathname]);
 

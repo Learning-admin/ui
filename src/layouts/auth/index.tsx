@@ -1,6 +1,6 @@
 import authImg from "assets/img/auth/auth.jpg";
 import { Link, Routes, Route, Navigate } from "react-router-dom";
-import routes from "routes";
+import routes from "AllRoutes/routes";
 
 export default function Auth() {
   const getRoutes = (routes: RoutesType[]): any => {
