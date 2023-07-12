@@ -63,7 +63,7 @@ const AddMenu = (props: any) => {
                                 <div className='mb-3 w-80'>
                                     <label className='inputLabel'>Title</label>
                                     <input id="title" type="text" className='inputField'
-                                        value={modalData.title}
+                                        value={modalData?.title}
                                         onChange={(e) => { onChangeHandler(e) }}
 
                                     // {...register("firstName")} 
@@ -78,7 +78,7 @@ const AddMenu = (props: any) => {
                                     <label className='inputLabel'>Icon</label>
                                     <input id="icon" type="text" className='inputField'
                                         onChange={(e) => { onChangeHandler(e) }}
-                                        value={modalData.icon}
+                                        value={modalData?.icon}
 
                                     // {...register("lastName")} 
                                     />
@@ -91,7 +91,7 @@ const AddMenu = (props: any) => {
                                     <input id="externalLink" className='inputField'
                                         //  {...register("email")}
                                         onChange={(e) => { onChangeHandler(e) }}
-                                        value={modalData.externalLink}
+                                        value={modalData?.externalLink}
                                     />
                                     {/* {errors.email && <div className="text-red-500 text-sm">
                                         {errors.email.message}
@@ -119,7 +119,7 @@ const AddMenu = (props: any) => {
                         </button>
                         <div >
                             {modalData?.rolesObjData?.length > 0 &&
-                                modalData.rolesObjData.map((ele: any, index: any) => <div className='displayFlex' >
+                                modalData?.rolesObjData.map((ele: any, index: any) => <div className='displayFlex' >
                                     {ele}
                                     <AiFillDelete className='rolesAdder' /></div>)}
                         </div>
