@@ -8,7 +8,7 @@ import { axiosGet } from 'services/axiosService';
 
 const CreatePopUp = (props: any) => {
 
-    const { setModal, handleSubmit, addTeacher, register, errors } = props
+    const { setModal, handleSubmit, addTeacher, register, errors, defaultValues } = props
 
     const genders = ['Male', 'Female', 'Other']
 
@@ -43,6 +43,7 @@ const CreatePopUp = (props: any) => {
     useEffect(() => {
         getEntities()
         getSubjectsByEntityType()
+        // console.log(defaultValues.firstName)
     }, [subject])
     return (
         <div className="bg-[rgba(0,0,0,0.5)] w-screen h-screen overflow-y-hidden fixed top-0 right-0 z-50 flex items-center justify-center">
@@ -61,7 +62,11 @@ const CreatePopUp = (props: any) => {
                             <div className='flex flex-col'>
                                 <div className='mb-3 w-80'>
                                     <label className='inputLabel'>First Name *</label>
-                                    <input type="text" className='inputField' {...register("firstName")} />
+                                    <input 
+                                    type="text" 
+                                    className='inputField' 
+                                    {...register("firstName")}
+                                    />
                                     {
                                         errors.firstName && <div className="text-red-500 text-sm">
                                             {errors.firstName.message}
@@ -116,7 +121,7 @@ const CreatePopUp = (props: any) => {
                                         subjectByEntity && <div className='mt-2'>
                                             {
                                                 subjectByEntity.map((subject: any) =>
-                                                    <div className='flex items-center gap-2'>
+                                                    <div className='flex items-center gap-2' key={subject._id}>
                                                         <input type="checkbox"
                                                             className={`defaultCheckbox relative flex h-[20px] min-h-[20px] w-[20px] min-w-[20px] appearance-none items-center 
                                                         justify-center rounded-md border border-gray-300 text-white/0 outline-none transition duration-[0.2s]
