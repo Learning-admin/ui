@@ -3,6 +3,9 @@ import { axiosGet } from "services/axiosService";
 import { ToastContainer, toast } from 'react-toastify';
 import MenusTable from "./components/MenusTable";
 import AddMenu from "./components/AddMenu";
+import { ZodType, z } from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 // AddMenu
 
 const Menus = () => {
@@ -11,6 +14,29 @@ const Menus = () => {
   const [menuModal, setMenuModal] = useState<boolean>(false);
 
 
+  const FormSchema = z.object({
+    "roles": z.string(),
+    "title": z.string(),
+    "icon": z.string(),
+    "externalLink": z.string()
+    // firstName: z.string().min(2).max(30)
+  })
+
+  type FormInput = z.infer<typeof FormSchema>;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormInput>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      "roles": "",
+      "title": "",
+      "icon": "",
+      "externalLink": ""
+    }
+  })
 
 
 
@@ -80,12 +106,30 @@ const Menus = () => {
     getMenus();
   }, [])
 
+  const addMenu = async (data: any) => {
+    console.log(data)
+    // try {
+    //   const response = await axiosPost("teacher/addTeacher", data)
+    //   console.log(response)
+    // }
+    // catch (err) {
+    //   console.log(err)
+    // }
+  }
+
 
   return (
     <div className="pt-5">
       <ToastContainer />
 
-      {menuModal && <AddMenu setMenuModal={setMenuModal} modalData={modalData} />}
+      {menuModal &&
+        <AddMenu
+          setMenuModal={setMenuModal}
+          modalData={modalData}
+          handleSubmit={handleSubmit}
+          errors={errors}
+          addMenu={addMenu}
+        />}
 
 
       <MenusTable

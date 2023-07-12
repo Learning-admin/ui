@@ -5,6 +5,14 @@ import React, { useState } from 'react'
 import { MdClose } from 'react-icons/md';
 
 const AddMenu = (props: any) => {
+
+    const { setMenuModal,
+        modalData,
+        handleSubmit,
+        errors,
+        addMenu
+    } = props;
+
     const subjects = ["SAT", "ACT", "MCAT", "K-12 Tutoring", "Default"]
     const genders = ["Male", "Female", "Other"]
 
@@ -28,67 +36,75 @@ const AddMenu = (props: any) => {
                         Add Menu
                     </div>
                     <MdClose className='h-6 w-6 cursor-pointer'
-                        onClick={() => props.setMenuModal(false)}
+                        onClick={() => setMenuModal(false)}
                     />
                 </header>
                 <div>
-                    <main className="mt-8 flex justify-between gap-10">
-                        {/* <LargeDropdown
-                        extra="mb-3"
-                        label="Exam Type *"
-                        dropdownData={examTypes}
-                        selected={examSelect}
-                        setSelected={setExamSelect}
-                        id="exam-type"
-                    />
-                    <LargeDropdown
-                        extra="mb-3"
-                        label="Plan *"
-                        dropdownData={plans}
-                        selected={planSelect}
-                        setSelected={setPlanSelect}
-                        id="exam-type"
-                        disabled={true}
-                    /> */}
-                        <div className='flex flex-col'>
-                            <InputField
-                                variant="auth"
-                                extra="mb-3 w-[400px]"
-                                label="Icon"
-                                placeholder="Icon..."
-                                id="icon"
-                                type="text"
-                            />
-                            <InputField
-                                variant="auth"
-                                extra="mb-3 w-[400px]"
-                                label="External Link"
-                                placeholder="External Link..."
-                                id="last-name"
-                                type="text"
-                            />
-                            <LargeDropdown
-                                extra="mb-3"
-                                label="Roles"
-                                dropdownData={rolesData}
-                                selected={roles}
-                                setSelected={setRoles}
-                                id="roles"
-                            />
-                        </div>
-                    </main>
-                    <button className="linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
-                        Add
-                    </button>
+                    <form onSubmit={handleSubmit(addMenu)}>
+                        <main className="mt-8 flex justify-between gap-10" >
+                            <div className='flex flex-col'>
+                                <div className='mb-3 w-80'>
+                                    <label className='inputLabel'>Title</label>
+                                    <input type="text" className='inputField'
+                                    // {...register("firstName")} 
+                                    />
+                                    {
+                                        errors.firstName && <div className="text-red-500 text-sm">
+                                            {errors.firstName.message}
+                                        </div>
+                                    }
+                                </div>
+                                <div className='mb-3 w-80'>
+                                    <label className='inputLabel'>Icon</label>
+                                    <input type="text" className='inputField'
+                                    // {...register("lastName")} 
+                                    />
+                                    {errors.lastName && <div className="text-red-500 text-sm">
+                                        {errors.lastName.message}
+                                    </div>}
+                                </div>
+                                <div className='mb-3 w-80'>
+                                    <label className='inputLabel'>External Link</label>
+                                    <input type="email" className='inputField'
+                                    //  {...register("email")}
+                                    />
+                                    {errors.email && <div className="text-red-500 text-sm">
+                                        {errors.email.message}
+                                    </div>}
+                                </div>
+                                <div className='mb-3 w-80'>
+                                    <label className='inputLabel'>Roles</label>
+                                    <select className='inputField'
+                                        onChange={e => setGender(e.target.value)}
+                                    // {...register("gender")} 
+                                    >
+                                        {
+                                            rolesData.map((ele, i) => <option key={i} value={ele}>{ele}</option>)
+                                        }
+                                    </select>
+                                    {/* {errors.qualification && <div className="text-red-500 text-sm">
+                                        {errors.qualification.message}
+                                    </div>} */}
+                                </div>
+                            </div>
+                        </main>
 
-                    <div style={{ display: "flex", float: "right" }} >
-                        <button className=" ml5 linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
-                            Cancel
+                        <button className="linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
+                            Add
                         </button>
-                        <button className="ml5 linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
-                            Save
-                        </button>
-                    </div>
+
+                        <div style={{ display: "flex", float: "right" }} >
+                            <button className=" ml5 linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
+                                Cancel
+                            </button>
+                            <button type="submit" className="ml5 linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
+                                Save
+                            </button>
+                        </div>
+
+
+                    </form>
+
 
                 </div>
             </Card>
