@@ -37,7 +37,7 @@ const AddMenu = (props: any) => {
 
             let arr = prev.rolesObjData;
 
-            if (val != "" && arr.includes(val) == false) {
+            if (val != "" && arr?.includes(val) == false) {
                 arr.push(val);
             }
 
