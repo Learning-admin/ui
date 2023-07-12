@@ -9,10 +9,6 @@ import { useEffect } from 'react';
 const MenusTable = (props: any) => {
     const { menusData, modelHandler } = props;
 
-    // useEffect(() => {
-    //     console.log(menusData)
-    // }, [menusData])
-
 
     return <>        <>
         <Card extra={"w-full pb-10 p-4 h-full"}>
@@ -113,7 +109,7 @@ const MenusTable = (props: any) => {
                                             <p className="text-sm font-bold text-navy-700">{menu.externalLink}</p>
                                         </td>
                                         <td className="min-w-[110px] border-white/0 py-3  pr-4 flex justify-center">
-                                            <div onClick={() => { console.log(menu); modelHandler(menu); }} className="flex items-center gap-3 justify-center cursor-pointer p-2 text-[#007bff] hover:bg-gray-100 w-10 h-10 rounded-lg">
+                                            <div onClick={() => { modelHandler(menu); }} className="flex items-center gap-3 justify-center cursor-pointer p-2 text-[#007bff] hover:bg-gray-100 w-10 h-10 rounded-lg">
                                                 <MdEdit />
                                             </div>
                                         </td>

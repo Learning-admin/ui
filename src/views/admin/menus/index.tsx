@@ -6,6 +6,7 @@ import AddMenu from "./components/AddMenu";
 import { ZodType, z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import "../../../assets/css/Menus.css";
 // AddMenu
 
 const Menus = () => {
@@ -42,19 +43,21 @@ const Menus = () => {
 
 
   interface rowObject {
-    "_id": String,
-    "roles": Object,
-    "title": String,
-    "icon": String,
-    "externalLink": String
+    "_id": string,
+    "roles": string,
+    "title": string,
+    "icon": string,
+    "externalLink": string,
+    "rolesObjData": Object
   }
 
   const initialVal: rowObject = {
     "_id": "",
-    "roles": [],
+    "roles": "",
     "title": "",
     "icon": "",
-    "externalLink": ""
+    "externalLink": "",
+    "rolesObjData": []
   };
 
   const [modalData, setModalData] = useState(initialVal)
@@ -90,10 +93,11 @@ const Menus = () => {
   }
 
   const modelHandler = (props: any) => {
-    //  props
-    // console.log(props)
-    // console.log(props._id);
-    // props._id == undefined ? setModalData(initialVal) : setModalData(props);
+
+    let tempProps = props;
+    tempProps["rolesObjData"] = props.roles;
+
+    setModalData(tempProps);
     setMenuModal(true);
   }
 
@@ -108,6 +112,7 @@ const Menus = () => {
 
   const addMenu = async (data: any) => {
     console.log(data)
+    console.log(modalData)
     // try {
     //   const response = await axiosPost("teacher/addTeacher", data)
     //   console.log(response)
@@ -129,6 +134,8 @@ const Menus = () => {
           handleSubmit={handleSubmit}
           errors={errors}
           addMenu={addMenu}
+          setModalData={setModalData}
+          initialVal={initialVal}
         />}
 
 
