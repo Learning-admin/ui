@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import TeacherTable from './components/TeacherTable'
 import teacherData from './data/teacherData'
 import { axiosGet, axiosPost, axiosPut } from 'services/axiosService'
@@ -10,11 +10,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ToastContainer, toast } from 'react-toastify'
 import { useAuthHook } from 'hooks/useAuthHook'
 
+type Default = {
+  firstName: string
+}
 
 const TeacherManagement = () => {
   const [teacherdata, setTeacherdata] = useState<any>([])
   const [modal, setModal] = useState<boolean>(false);
   const [render, setRender] = useState<boolean>(false);
+  const [defaultValues, setDefaultValues] = useState<Default>();
 
   const handleLogout = useAuthHook()
 
@@ -34,9 +38,13 @@ const TeacherManagement = () => {
 
   type FormInput = z.infer<typeof FormSchema>;
 
+  // console.log(defaultValues)
+
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<FormInput>({
     resolver: zodResolver(FormSchema),
@@ -90,21 +98,21 @@ const TeacherManagement = () => {
   }
   const handleActive = (id: string, isActive: boolean) => {
     axiosPut('teacher/updateTeacher',
-        {
-          isActive: isActive,
-          _id: id
-        }).then((res) => {
-          handleReRender()
-          console.log(res)
-          toast.success('Status updated successfully!', {
-            position: toast.POSITION.TOP_RIGHT,
-            className: 'toast-message',
-            hideProgressBar: true
-          });
+      {
+        isActive: isActive,
+        _id: id
+      }).then((res) => {
+        handleReRender()
+        console.log(res)
+        toast.success('Status updated successfully!', {
+          position: toast.POSITION.TOP_RIGHT,
+          className: 'toast-message',
+          hideProgressBar: true
+        });
 
-        }).catch(err => console.log(err))
-      }
-      
+      }).catch(err => console.log(err))
+  }
+
   useEffect(() => {
     getAllTeachers()
   }, [render])
@@ -120,13 +128,17 @@ const TeacherManagement = () => {
         addTeacher={addTeacher}
         register={register}
         errors={errors}
+        defaultValues={defaultValues}
 
       />}
 
       <TeacherData
         tableData={teacherdata}
         setModal={setModal}
-        handleActive={handleActive} />
+        handleActive={handleActive}
+        setDefaultValues={setDefaultValues}
+        reset={reset}
+      />
     </div>
   )
 }

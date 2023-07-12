@@ -10,7 +10,7 @@ import { AiOutlineClockCircle } from 'react-icons/ai';
 
 
 const TeacherData = (props: any) => {
-    const { tableData, setModal, handleActive } = props
+    const { tableData, setModal, handleActive, setDefaultValues, defaultValues, reset } = props
     // console.log(tableData)
     const [open, setOpen] = React.useState(false);
     const [checked, setchecked] = useState<boolean>();
@@ -23,9 +23,14 @@ const TeacherData = (props: any) => {
 
     const handleCreate = () => {
         setModal(true)
+        reset()
     }
     const handleEdit = (data: any) => {
+        reset((formValues: any) => ({
+            ...formValues, ...data
+          }))
         setModal(true)
+        // setDefaultValues(data)
     }
 
     return (<>
@@ -168,9 +173,9 @@ const TeacherData = (props: any) => {
                                             classNames={`${i === 4 ? "top-[-60px] right-[40px]" : "top-11 right-0"}  w-max`}
                                             children={
                                                 <div className="z-100 w-max rounded-xl bg-white py-3 px-4 text-sm shadow-xl shadow-shadow-500">
-                                                    <p className=" text-[16px] flex cursor-pointer items-center gap-4 p-2 hover:bg-[#007bff] hover:text-white rounded-xl">
+                                                    <p onClick={()=>handleEdit(data)} className=" text-[16px] flex cursor-pointer items-center gap-4 p-2 hover:bg-[#007bff] hover:text-white rounded-xl">
                                                         <span>
-                                                            <MdEdit />
+                                                            <MdEdit/>
                                                         </span>
                                                         Edit
                                                     </p>
