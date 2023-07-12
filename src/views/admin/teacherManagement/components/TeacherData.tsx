@@ -1,6 +1,6 @@
 import Card from 'components/card';
 import Checkbox from 'components/checkbox';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdAdd, MdCheck, MdDelete, MdEdit, MdOutlineClose } from 'react-icons/md';
 import CreatePopUp from './CreatePopup';
 import Dropdown from 'components/dropdown';
@@ -13,6 +13,7 @@ const TeacherData = (props: any) => {
     const { tableData, setModal, handleActive } = props
     // console.log(tableData)
     const [open, setOpen] = React.useState(false);
+    const [checked, setchecked] = useState<boolean>();
     const transparent = false
 
     const dateConvertor = (dateString: string) => {
@@ -26,6 +27,7 @@ const TeacherData = (props: any) => {
     const handleEdit = (data: any) => {
         setModal(true)
     }
+
     return (<>
         <Card extra={"w-full pb-10 p-4 h-full"}>
             <header className="relative flex items-center justify-between mt-4">
@@ -109,7 +111,16 @@ const TeacherData = (props: any) => {
                                     <p className="text-sm font-bold text-navy-700">{data.mobileNo}</p>
                                 </td>
                                 <td className="min-w-[110px] border-white/0 py-3  pr-4">
-                                    <Checkbox checked={data.isActive} onChange={() => handleActive(data._id)} />
+                                    {/* <Checkbox defaultChecked={data.isActive} checked={checked} handleChange={handleActive} value={data}/> */}
+                                    <input
+                                        type="checkbox"
+                                        className={'checkBox'}
+                                        id={data.name}
+                                        value={data._id}
+                                        checked={checked}
+                                        defaultChecked={data.isActive}
+                                        onChange={(e)=>handleActive(e.target.value, !data.isActive)}
+                                    />
                                 </td>
                                 <td className="min-w-[110px] border-white/0 py-3  pr-4">
                                     <div className="text-sm font-bold text-navy-700">{data.emailVerified ?

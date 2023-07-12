@@ -11,8 +11,17 @@ export const axiosGet = (url: string) => {
     })
 }
 
-export const axiosPost = (url: string, data: any) => {
+export const axiosPost = (url: string, data?: any) => {
     return axios.post(`${baseURL}${url}`, data, {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `${localStorage.getItem("accessToken")}`
+        }
+    })
+}
+
+export const axiosPut = (url: string, data?: any) => {
+    return axios.put(`${baseURL}${url}`, data, {
         headers: {
             "Content-Type": "application/json",
             Authorization: `${localStorage.getItem("accessToken")}`

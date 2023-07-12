@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import TeacherTable from './components/TeacherTable'
 import teacherData from './data/teacherData'
-import { axiosGet, axiosPost } from 'services/axiosService'
+import { axiosGet, axiosPost, axiosPut } from 'services/axiosService'
 import TeacherData from './components/TeacherData'
 import CreatePopUp from './components/CreatePopup'
 import { ZodType, z } from 'zod'
@@ -14,6 +14,7 @@ import { useAuthHook } from 'hooks/useAuthHook'
 const TeacherManagement = () => {
   const [teacherdata, setTeacherdata] = useState<any>([])
   const [modal, setModal] = useState<boolean>(false);
+  const [render, setRender] = useState<boolean>(false);
 
   const handleLogout = useAuthHook()
 
@@ -33,14 +34,14 @@ const TeacherManagement = () => {
 
   type FormInput = z.infer<typeof FormSchema>;
 
-  const { 
+  const {
     register,
-    handleSubmit, 
-    formState: { errors } 
-  } = useForm<FormInput>({ 
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormInput>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      firstName:'',
+      firstName: '',
       lastName: '',
       email: '',
       mobileNo: '',
@@ -57,22 +58,25 @@ const TeacherManagement = () => {
   const getAllTeachers = async () => {
     try {
       const response = await axiosGet("teacher/getTeachers?pageNo=1&pageSize=5")
-      console.log(response.data.data)
-      setTeacherdata(response.data.data)
-      toast.success('Data Fetched!', {
-        position: toast.POSITION.TOP_RIGHT,
-        className: 'toast-message',
-        hideProgressBar: true
-      });
+      // console.log(response.data.data)
+      setTeacherdata(response?.data?.data)
+      // toast.success('Data Fetched!', {
+      //   position: toast.POSITION.TOP_RIGHT,
+      //   className: 'toast-message',
+      //   hideProgressBar: true
+      // });
     } catch (err: any) {
       console.log(err.response.data.status)
-      if(err.response.data.status === 401) handleLogout()
-      toast.error(err.response.data.message, {
+      if (err.response.data.status === 401) handleLogout()
+      toast.error(err.response?.data?.message, {
         position: toast.POSITION.TOP_RIGHT,
         className: 'toast-message',
         hideProgressBar: true
       });
     }
+  }
+  const handleReRender = () => {
+    setRender(!render)
   }
   const addTeacher = async (data: any) => {
     console.log(data)
@@ -84,15 +88,30 @@ const TeacherManagement = () => {
     //   console.log(err)
     // }
   }
-  const handleActive = (id: string) => {
+  const handleActive = (id: string, isActive: boolean) => {
+    axiosPut('teacher/updateTeacher',
+        {
+          isActive: isActive,
+          _id: id
+        }).then((res) => {
+          handleReRender()
+          console.log(res)
+          toast.success('Status updated successfully!', {
+            position: toast.POSITION.TOP_RIGHT,
+            className: 'toast-message',
+            hideProgressBar: true
+          });
 
-  }
+        }).catch(err => console.log(err))
+      }
+      
   useEffect(() => {
     getAllTeachers()
-  }, [])
+  }, [render])
+
   return (
     <div className="pt-5">
-      <ToastContainer/>
+      <ToastContainer />
       {/* <TeacherTable tableData={teacherdata} /> */}
       {modal && <CreatePopUp
         setModal={setModal}
@@ -104,7 +123,10 @@ const TeacherManagement = () => {
 
       />}
 
-      <TeacherData tableData={teacherdata} setModal={setModal} />
+      <TeacherData
+        tableData={teacherdata}
+        setModal={setModal}
+        handleActive={handleActive} />
     </div>
   )
 }
