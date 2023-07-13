@@ -21,8 +21,9 @@ const modules: Modules = {
     ],
 }
 
-export default function Editor() {
+const  Editor = () =>{
   return (
     <ReactQuill modules={modules} theme="snow"/>
   );
 }
+export default Editor

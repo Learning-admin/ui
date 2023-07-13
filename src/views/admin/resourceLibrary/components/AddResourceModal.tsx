@@ -3,7 +3,8 @@ import InputField from 'components/fields/InputField';
 import LargeDropdown from 'components/largeDropdown';
 import React, { useState } from 'react'
 import { MdClose } from 'react-icons/md';
-import Editor from './Editor';
+import TextEditor from './TextEditor';
+
 
 const AddResourceModal = (props: any) => {
     const {setModal} = props
@@ -46,7 +47,7 @@ const AddResourceModal = (props: any) => {
                             />
                             
                         </div>
-                        <Editor/>
+                        <TextEditor/>
                     </main>
                     <button className="linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
                         Submit
