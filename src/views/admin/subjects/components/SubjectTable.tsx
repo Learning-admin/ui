@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "components/card";
 import { MdAdd, MdCheck, MdClose, MdDelete, MdEdit, MdOutlinePendingActions } from 'react-icons/md'
 
@@ -24,10 +24,16 @@ type RowObj = {
   actions: any
 };
 
-function SubjectTable(props:
-  { tableData: any, subjectTypeSelected: any, setSubjectTypeSelected: any }
-) {
-  const { tableData, subjectTypeSelected, setSubjectTypeSelected } = props;
+function SubjectTable(props: any) {
+  const
+    {
+      tableData,
+      subjectTypeSelected,
+      setSubjectTypeSelected,
+      modalData,
+      setModalData,
+      initialVal
+    } = props;
   const [sorting, setSorting] = useState<SortingState>([]);
   const [modal, setModal] = useState<boolean>(false);
 
@@ -46,12 +52,47 @@ function SubjectTable(props:
 
 
 
-  const handleCreate = () => {
-    setModal(true)
+  const handleCreate = (subjectRow: any) => {
+    let obj = null;
+    if (subjectRow != undefined) {
+      obj = { ...subjectRow };
+
+      let innerObj: any = []
+
+      obj?.subCat?.map((d: any, i: number) => {
+        innerObj.push({ "id": i, "value": d });
+      })
+
+      obj["subCatObj"] = innerObj;
+      obj["subCat"] = "";
+    }
+
+    console.log(modalData)
+
+    subjectRow == undefined ?
+      setModalData(initialVal)
+      : setModalData(obj);
   }
+
+  useEffect(() => {
+    setModal(true);
+  }, [modalData])
+
+
+
+  const onChangeHandler = (e: any) => {
+    const { id, value } = e.target
+    setModalData((prev: any) => ({ ...prev, [id]: value }))
+  }
+
   return (
     <>
-      {modal && <AddSubjectModal setModal={setModal} />}
+      {modal && <AddSubjectModal
+        setModal={setModal}
+        subjectType={subjectType}
+        modalData={modalData}
+        setModalData={setModalData}
+      />}
       <Card extra={"w-full pb-10 p-4 h-full"}>
         <header className="relative flex items-center justify-between mt-4">
           <div className="text-xl font-bold text-navy-700 dark:text-white">
@@ -133,10 +174,10 @@ function SubjectTable(props:
                         <p className="text-sm font-bold text-navy-700">{subject.name}</p>
                       </td>
                       <td className="min-w-[110px] border-white/0 py-3  pr-4">
-                        <p className="text-sm font-bold text-navy-700">{(subject.subCat).map((d: any) => <span style={{ marginRight: "5px" }} >{d}</span>)}</p>
+                        <p className="text-sm font-bold text-navy-700">{(subject.subCat).map((d: any) => <><div style={{ marginRight: "5px" }} >{d}</div><div>{"  "}</div></>)}</p>
                       </td>
                       <td className="min-w-[110px] border-white/0 py-3  pr-4 flex justify-center">
-                        <div onClick={() => { console.log("menu"); }} className="flex items-center gap-3 justify-center cursor-pointer p-2 text-[#007bff] hover:bg-gray-100 w-10 h-10 rounded-lg">
+                        <div onClick={() => { handleCreate(subject); console.log(subject); }} className="flex items-center gap-3 justify-center cursor-pointer p-2 text-[#007bff] hover:bg-gray-100 w-10 h-10 rounded-lg">
                           <MdEdit />
                         </div>
                       </td>

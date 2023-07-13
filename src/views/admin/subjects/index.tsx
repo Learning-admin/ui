@@ -18,6 +18,37 @@ const Subjects = () => {
 
   const [subjectData, setsubjectData] = useState<any>([])
 
+  // {
+  //   "name": "Reading",
+  //     "subCat": [
+  //       "SS (Social Studies / Sciences)",
+  //       "AL (Arts / Literature)"
+  //     ],
+  //       "status": 1,
+  //         "_id": "60725312789819c5d2621d6f",
+  //           "entityType": "act"
+  // }
+
+  interface rowObject {
+    "name": string,
+    "subCat": string,
+    "status": string,
+    "_id": string,
+    "entityType": string,
+    "subCatObj": Object
+  }
+
+  const initialVal: rowObject = {
+    "name": "",
+    "subCat": "",
+    "status": "",
+    "_id": "",
+    "entityType": "",
+    "subCatObj": []
+  };
+
+  const [modalData, setModalData] = useState(initialVal)
+
   useEffect(() => {
     console.log(subjectTypeSelected);
     getMenus();
@@ -54,12 +85,15 @@ const Subjects = () => {
 
   return (
     <div className='pt-5'>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
 
       <SubjectTable
         tableData={subjectData}
         subjectTypeSelected={subjectTypeSelected}
         setSubjectTypeSelected={setSubjectTypeSelected}
+        modalData={modalData}
+        setModalData={setModalData}
+        initialVal={initialVal}
       />
     </div>
   )
