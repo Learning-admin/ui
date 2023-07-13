@@ -94,8 +94,10 @@ const Menus = () => {
 
   const modelHandler = (props: any) => {
 
-    let tempProps = props;
+    let tempProps = { ...props };
+    tempProps["roles"] = "";
     tempProps["rolesObjData"] = props.roles;
+    tempProps["externalLink"] = tempProps["externalLink"] == undefined ? "" : tempProps["externalLink"]
 
     setModalData(tempProps);
     setMenuModal(true);

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "components/card";
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdCheck, MdClose, MdDelete, MdEdit, MdOutlinePendingActions } from 'react-icons/md'
+
 
 import {
   createColumnHelper,
@@ -23,145 +24,75 @@ type RowObj = {
   actions: any
 };
 
-function SubjectTable(props: { tableData: any }) {
-  const { tableData } = props;
+function SubjectTable(props: any) {
+  const
+    {
+      tableData,
+      subjectTypeSelected,
+      setSubjectTypeSelected,
+      modalData,
+      setModalData,
+      initialVal
+    } = props;
   const [sorting, setSorting] = useState<SortingState>([]);
   const [modal, setModal] = useState<boolean>(false);
 
+
+  const subjectType = [
+    { value: "sat", label: "SAT" },
+    { value: "act", label: "ACT" },
+    { value: "MCAT", label: "MCAT" },
+    { value: "K-12 Tutoring", label: "K-12 Tutoring" },
+    { value: "default", label: "Default" }
+  ]
+
   let defaultData = tableData;
-  const columns = [
 
-    columnHelper.accessor("name", {
-      id: "name",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">NAME OF THE BATCH</p>
-      ),
-      cell: (info: any) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-
-
-    columnHelper.accessor("examType", {
-      id: "examType",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          EXAM TYPE
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-
-    columnHelper.accessor("plan", {
-      id: "plan",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          PLAN
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-
-    columnHelper.accessor("hours", {
-      id: "hours",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          HOURS
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-
-    columnHelper.accessor("available", {
-      id: "available",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          AVAILABLE
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-
-    columnHelper.accessor("student", {
-      id: "student",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          STUDENT
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-
-    columnHelper.accessor("date", {
-      id: "date",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">DATE</p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-
-    columnHelper.accessor("actions", {
-      id: "actions",
-      header: () => (
-        <p className="text-sm font-bold text-gray-600 dark:text-white">
-          ACTIONS
-        </p>
-      ),
-      cell: (info) => (
-        <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
-        </p>
-      ),
-    }),
-  ]; // eslint-disable-next-line
-
-  
   const [data, setData] = React.useState(() => [...defaultData]);
 
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      sorting,
-    },
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    debugTable: true,
-  });
 
-  const handleCreate = () =>{
-    setModal(true)
+
+  const handleCreate = (subjectRow: any) => {
+    let obj = null;
+    if (subjectRow != undefined) {
+      obj = { ...subjectRow };
+
+      let innerObj: any = []
+
+      obj?.subCat?.map((d: any, i: number) => {
+        innerObj.push({ "id": i, "value": d });
+      })
+
+      obj["subCatObj"] = innerObj;
+      obj["subCat"] = "";
+    }
+
+    console.log(modalData)
+
+    subjectRow == undefined ?
+      setModalData(initialVal)
+      : setModalData(obj);
   }
+
+  useEffect(() => {
+    setModal(true);
+  }, [modalData])
+
+
+
+  const onChangeHandler = (e: any) => {
+    const { id, value } = e.target
+    setModalData((prev: any) => ({ ...prev, [id]: value }))
+  }
+
   return (
     <>
-      {modal && <AddSubjectModal setModal={setModal}/>}
+      {modal && <AddSubjectModal
+        setModal={setModal}
+        subjectType={subjectType}
+        modalData={modalData}
+        setModalData={setModalData}
+      />}
       <Card extra={"w-full pb-10 p-4 h-full"}>
         <header className="relative flex items-center justify-between mt-4">
           <div className="text-xl font-bold text-navy-700 dark:text-white">
@@ -169,66 +100,96 @@ function SubjectTable(props: { tableData: any }) {
           </div>
           {/* <CardMenu transparent={false} data={'create'}/> */}
           <button className="linear flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
-          onClick={handleCreate}>
-            <MdAdd className="h-6 w-6" />Create
+            onClick={handleCreate}>
+            <MdAdd className="h-6 w-6" />Add Subject
           </button>
+          <select id="roles" className='wid inputField'
+            onChange={(e) => { setSubjectTypeSelected(e.target.value) }}
+          // {...register("gender")} 
+          >
+            {
+              subjectType.map((ele, i) => <option key={i} value={ele.value}>{ele.label}</option>)
+            }
+          </select>
         </header>
 
         <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">
           <table className="w-full">
             <thead>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id} className="!border-px !border-gray-400">
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <th
-                        key={header.id}
-                        colSpan={header.colSpan}
-                        onClick={header.column.getToggleSortingHandler()}
-                        className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start"
-                      >
-                        <div className="items-center justify-between text-xs text-gray-200">
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                          {{
-                            asc: "",
-                            desc: "",
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </div>
-                      </th>
-                    );
-                  })}
-                </tr>
-              ))}
+              <tr className="!border-px !border-gray-400">
+                <th
+                  className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
+                  <div className="items-center justify-between text-sm font-bold text-gray-600">
+                    S.NO
+                  </div>
+                </th>
+                <th
+                  className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
+                  <div className="items-center justify-between text-sm font-bold text-gray-600">
+                    EXAM TYPE
+                  </div>
+                </th>
+                {/* <th
+                            className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
+                            <div className="items-center justify-between text-sm font-bold text-gray-600">
+                                1-1 (OR) SMALL GROUP
+                            </div>
+                        </th> */}
+                <th
+                  className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
+                  <div className="items-center justify-between text-sm font-bold text-gray-600">
+                    SUBJECTS
+                  </div>
+                </th>
+                <th
+                  className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
+                  <div className="text-sm font-bold text-gray-600">
+                    SUB CATEGORY
+                  </div>
+                </th>
+
+                <th
+                  className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
+                  <div className="flex items-center justify-center text-sm font-bold text-gray-600">
+                    ACTIONS
+                  </div>
+                </th>
+              </tr>
             </thead>
             <tbody>
-              {table
-                .getRowModel()
-                .rows.slice(0, 5)
-                .map((row) => {
+              {
+                tableData && tableData.map((subject: any, index: number) => {
                   return (
-                    <tr key={row.id}>
-                      {row.getVisibleCells().map((cell) => {
-                        return (
-                          <td
-                            key={cell.id}
-                            className="min-w-[110px] border-white/0 py-3  pr-4"
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </td>
-                        );
-                      })}
+                    <tr key={subject._id}>
+                      <td className="min-w-[110px] border-white/0 py-3  pr-4">
+                        <p className='text-sm font-bold text-navy-700'>{index + 1}</p>
+                      </td>
+                      <td className="min-w-[110px] border-white/0 py-3  pr-4">
+                        <p className='text-sm font-bold text-navy-700'>{subject.entityType}</p>
+                      </td>
+                      {/* <td className="min-w-[110px] border-white/0 py-3  pr-4">
+                                        <p className='text-sm font-bold text-navy-700'>{''}</p>
+                                    </td> */}
+                      <td className="min-w-[110px] border-white/0 py-3  pr-4">
+                        <p className="text-sm font-bold text-navy-700">{subject.name}</p>
+                      </td>
+                      <td className="min-w-[110px] border-white/0 py-3  pr-4">
+                        <p className="text-sm font-bold text-navy-700">{(subject.subCat).map((d: any) => <><div style={{ marginRight: "5px" }} >{d}</div><div>{"  "}</div></>)}</p>
+                      </td>
+                      <td className="min-w-[110px] border-white/0 py-3  pr-4 flex justify-center">
+                        <div onClick={() => { handleCreate(subject); console.log(subject); }} className="flex items-center gap-3 justify-center cursor-pointer p-2 text-[#007bff] hover:bg-gray-100 w-10 h-10 rounded-lg">
+                          <MdEdit />
+                        </div>
+                      </td>
                     </tr>
-                  );
-                })}
+                  )
+                })
+              }
+
             </tbody>
           </table>
         </div>
+
       </Card>
     </>
   );

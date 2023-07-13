@@ -1,0 +1,15 @@
+.wid{
+    width: 11%;
+}
+
+.displayFlex{
+    display: flex
+}
+
+.iconPosition{
+    margin-left: 8px;
+    margin-top: 2px;
+}
+.textWidth{
+    width : 80%
+}
