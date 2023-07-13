@@ -10,7 +10,7 @@ import { AiOutlineClockCircle } from 'react-icons/ai';
 
 
 const TeacherData = (props: any) => {
-    const { tableData, setModal, handleActive, setDefaultValues, defaultValues, reset } = props
+    const { tableData, setModal, handleActive, reset, setEdit } = props
     // console.log(tableData)
     const [open, setOpen] = React.useState(false);
     const [checked, setchecked] = useState<boolean>();
@@ -22,10 +22,12 @@ const TeacherData = (props: any) => {
 
 
     const handleCreate = () => {
+        setEdit(false)
         setModal(true)
         reset()
     }
     const handleEdit = (data: any) => {
+        setEdit(true)
         reset((formValues: any) => ({
             ...formValues, ...data
           }))

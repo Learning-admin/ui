@@ -8,7 +8,7 @@ import { axiosGet } from 'services/axiosService';
 
 const CreatePopUp = (props: any) => {
 
-    const { setModal, handleSubmit, addTeacher, register, errors, defaultValues } = props
+    const { setModal, handleSubmit, addTeacher, register, errors, edit } = props
 
     const genders = ['Male', 'Female', 'Other']
 
@@ -50,7 +50,7 @@ const CreatePopUp = (props: any) => {
             <Card extra="w-auto h-auto p-6">
                 <header className="relative flex items-center justify-between">
                     <div className="text-xl font-bold text-navy-700 dark:text-white">
-                        Add Teacher
+                        {edit ? 'Update Teacher': 'Add Teacher'}
                     </div>
                     <MdClose className='h-6 w-6 cursor-pointer'
                         onClick={() => setModal(false)}
@@ -171,9 +171,12 @@ const CreatePopUp = (props: any) => {
                                 </div>
                             </div>
                         </main>
-                        <button type="submit" className="linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
+                        {edit ? <button type="submit" className="linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
+                            Update
+                        </button>: <button type="submit" className="linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
                             Submit
-                        </button>
+                        </button>}
+                        
                     </form>
                 </div>
             </Card>

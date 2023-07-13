@@ -18,7 +18,7 @@ const TeacherManagement = () => {
   const [teacherdata, setTeacherdata] = useState<any>([])
   const [modal, setModal] = useState<boolean>(false);
   const [render, setRender] = useState<boolean>(false);
-  const [defaultValues, setDefaultValues] = useState<Default>();
+  const [edit, setEdit] = useState<boolean>(false)
 
   const handleLogout = useAuthHook()
 
@@ -113,6 +113,11 @@ const TeacherManagement = () => {
       }).catch(err => console.log(err))
   }
 
+  const handleUpdateTeacher = (data: any) =>{
+    
+  }
+
+
   useEffect(() => {
     getAllTeachers()
   }, [render])
@@ -128,7 +133,7 @@ const TeacherManagement = () => {
         addTeacher={addTeacher}
         register={register}
         errors={errors}
-        defaultValues={defaultValues}
+        edit={edit}
 
       />}
 
@@ -136,8 +141,8 @@ const TeacherManagement = () => {
         tableData={teacherdata}
         setModal={setModal}
         handleActive={handleActive}
-        setDefaultValues={setDefaultValues}
         reset={reset}
+        setEdit={setEdit}
       />
     </div>
   )
