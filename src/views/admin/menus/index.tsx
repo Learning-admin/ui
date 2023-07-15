@@ -114,7 +114,7 @@ const Menus = () => {
 
   const addMenu = async (data: any) => {
     console.log(data)
-    console.log(modalData)
+    // console.log(modalData)
     // try {
     //   const response = await axiosPost("teacher/addTeacher", data)
     //   console.log(response)

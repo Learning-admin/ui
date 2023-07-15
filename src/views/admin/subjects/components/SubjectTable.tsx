@@ -67,7 +67,7 @@ function SubjectTable(props: any) {
       obj["subCat"] = "";
     }
 
-    console.log(modalData)
+    // console.log(modalData)
 
     subjectRow == undefined ?
       setModalData(initialVal)

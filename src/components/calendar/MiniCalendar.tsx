@@ -8,7 +8,7 @@ import "assets/css/MiniCalendar.css";
 const MiniCalendar = () => {
   const [value, onChange] = useState(new Date());
 
-  console.log(value)
+  // console.log(value)
 
   return (
     <div>
