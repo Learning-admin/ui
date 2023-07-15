@@ -1,4 +1,5 @@
 import Card from 'components/card'
+import '../../../assets/css/ReactQuill.css'
 import { useEffect, useState } from 'react'
 import AddResourceModal from './components/AddResourceModal';
 import ResourceGrid from './components/ResourceGrid';

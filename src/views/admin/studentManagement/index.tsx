@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const StudentManagement = () => {
-  const [studentData, setStudentData] = useState<any>()
+  const [studentData, setStudentData] = useState<any>();
   const [modal, setModal] = useState<boolean>(false);
 
   const getStudent = async () => {

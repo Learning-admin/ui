@@ -4,7 +4,7 @@ import { GrAdd } from 'react-icons/gr'
 import { MdClose } from 'react-icons/md'
 
 const EntityModal = (props: any) => {
-    const {setEntityModal} = props
+    const { setEntityModal } = props
     return (
         <div className="bg-[rgba(0,0,0,0.5)] w-screen h-screen overflow-y-hidden fixed top-0 right-0 z-50 flex items-center justify-center">
             <Card extra="w-auto h-auto p-6">
@@ -13,7 +13,7 @@ const EntityModal = (props: any) => {
                         Add Entity
                     </div>
                     <MdClose className='h-6 w-6 cursor-pointer'
-                    onClick={() => setEntityModal(false)}
+                        onClick={() => setEntityModal(false)}
                     />
                 </header>
                 <div>
