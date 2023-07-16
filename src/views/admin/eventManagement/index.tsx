@@ -5,6 +5,8 @@ import { axiosGet } from 'services/axiosService'
 import Events from './components/Events'
 import { ToastContainer, toast } from 'react-toastify'
 import MiniCalendar from 'components/calendar/MiniCalendar'
+import LineChart from 'components/charts/LineAreaChart'
+import PieChart from 'components/charts/PieChart'
 
 const EventManagement = () => {
   const [events, setEvents] = useState<any>()
@@ -37,8 +39,9 @@ const EventManagement = () => {
     <div className="w-100 mt-5 grid h-full gap-5">
       <ToastContainer />
       {/* <ColumnsTable tableData={tableDataColumns} /> */}
-      <Events tableData={events} />
-      <MiniCalendar/>
+      {/* <Events tableData={events} /> */}
+      {/* <MiniCalendar/> */}
+      {/* <LineChart/> */}
     </div>
   )
 }
