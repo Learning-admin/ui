@@ -129,12 +129,6 @@ function AssignmentTable(props:any){
                 <th
                   className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
                   <div className="items-center justify-between text-sm font-bold text-gray-600">
-                    S.NO
-                  </div>
-                </th>
-                <th
-                  className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
-                  <div className="items-center justify-between text-sm font-bold text-gray-600">
                     TESTPAPER
                   </div>
                 </th>
@@ -167,23 +161,20 @@ function AssignmentTable(props:any){
             </thead>
             <tbody>
               {
-                tableData && tableData.map((subject: any, index: number) => {
+                tableData && tableData.map((assignment: any, index: number) => {
                   return (
-                    <tr key={subject._id}>
+                    <tr key={assignment._id}>
                       <td className="min-w-[110px] border-white/0 py-3  pr-4">
-                        <p className='text-sm font-bold text-navy-700'>{index + 1}</p>
-                      </td>
-                      <td className="min-w-[110px] border-white/0 py-3  pr-4">
-                        <p className='text-sm font-bold text-navy-700'>{subject.entityType}</p>
+                        <p className='text-sm font-bold text-navy-700'>{assignment.entityType}</p>
                       </td>
                       {/* <td className="min-w-[110px] border-white/0 py-3  pr-4">
                                         <p className='text-sm font-bold text-navy-700'>{''}</p>
                                     </td> */}
                       <td className="min-w-[110px] border-white/0 py-3  pr-4">
-                        <p className="text-sm font-bold text-navy-700">{subject.name}</p>
+                        <p className="text-sm font-bold text-navy-700">{assignment.name}</p>
                       </td>
                       <td className="min-w-[110px] border-white/0 py-3  pr-4">
-                        <p className="text-sm font-bold text-navy-700">{(subject.subCat).map((d: any) => <><div style={{ marginRight: "5px" }} >{d}</div><div>{"  "}</div></>)}</p>
+                        <p className="text-sm font-bold text-navy-700">{(assignment.subCat).map((d: any) => <><div style={{ marginRight: "5px" }} >{d}</div><div>{"  "}</div></>)}</p>
                       </td>
                       <td className="min-w-[110px] border-white/0 py-3  pr-4 flex justify-center">
                         <button className="linear flex items-center justify-center rounded-xl bg-[#f43f5e] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#be123c] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"

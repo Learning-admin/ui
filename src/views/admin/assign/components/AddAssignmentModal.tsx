@@ -53,8 +53,16 @@ const AddAssignmentModal = (props: any) => {
       </header>
       <main className="mt-8 flex justify-between gap-10" >
         <div className='flex flex-col'>
+        <select id="entityType" className='inputField mr-4'
+        onChange={(e) => { onChangeHandler(e) }}
+        >
+        <option value="">{"ACT"}</option>
+          {
+           subjectType.map((ele: any, i: number) => <option key={i} selected={modalData?.entityType == ele.value} value={ele.value}>{ele.label}</option>)
+          }
+      </select>
           <div className='mb-3 w-80'>
-            <label className='inputLabel'>Type</label>
+            <label className='inputLabel'>Test Paper</label>
             <select id="entityType" className='inputField'
               onChange={(e) => { onChangeHandler(e) }}
               >
@@ -63,26 +71,18 @@ const AddAssignmentModal = (props: any) => {
                   subjectType.map((ele: any, i: number) => <option key={i} selected={modalData?.entityType == ele.value} value={ele.value}>{ele.label}</option>)
                 }
             </select>
-            </div>
-            <div className='mb-3 w-80'>
-              <label className='inputLabel'>Assignment Name</label>
-              <input id="name" type="text" className='inputField'
-                onChange={(e) => { onChangeHandler(e) }}
-                value={modalData?.name}
-              />
-            </div>
+          </div>
 
-            <div className='mb-3 w-80'>
-              <label className='inputLabel displayFlex'>Sub Category<GrAdd className='iconPosition' onClick={() => { addHandler() }} /></label>
-              <div >{modalData?.subCatObj?.map((ele: any, i: number) => {
-                return <div key={i} className='displayFlex'> <input id="subCatObj" type="text" className='textWidth inputField'
-                onChange={(e) => { onChangeSubHandler(e, ele) }}
-                defaultValue={ele?.value}/>
-                <button onClick={() => { popHandler(ele) }} className="ml5 linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
-                  {"-"}
-                </button>
-              </div>
-            })}</div>    
+          <div className='mb-3 w-80'>
+            <label className='inputLabel'>Batch</label>
+            <select id="entityType" className='inputField'
+              onChange={(e) => { onChangeHandler(e) }}
+              >
+              <option value="">{"<<Please Select>>"}</option>
+                {
+                  subjectType.map((ele: any, i: number) => <option key={i} selected={modalData?.entityType == ele.value} value={ele.value}>{ele.label}</option>)
+                }
+            </select>
           </div>
         </div>
       </main>
