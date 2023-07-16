@@ -18,6 +18,9 @@ const Subjects = () => {
 
   const [subjectData, setsubjectData] = useState<any>([])
 
+  const [count, setCount] = useState<number>(0)
+
+
   // {
   //   "name": "Reading",
   //     "subCat": [
@@ -94,6 +97,8 @@ const Subjects = () => {
         modalData={modalData}
         setModalData={setModalData}
         initialVal={initialVal}
+        setCount={setCount}
+        count={count}
       />
     </div>
   )
