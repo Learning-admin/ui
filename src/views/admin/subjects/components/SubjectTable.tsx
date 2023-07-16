@@ -32,7 +32,9 @@ function SubjectTable(props: any) {
       setSubjectTypeSelected,
       modalData,
       setModalData,
-      initialVal
+      initialVal,
+      setCount,
+      count
     } = props;
   const [sorting, setSorting] = useState<SortingState>([]);
   const [modal, setModal] = useState<boolean>(false);
@@ -53,6 +55,9 @@ function SubjectTable(props: any) {
 
 
   const handleCreate = (subjectRow: any) => {
+
+    setCount((prev: number) => prev + 1)
+
     let obj = null;
     if (subjectRow != undefined) {
       obj = { ...subjectRow };
@@ -67,7 +72,7 @@ function SubjectTable(props: any) {
       obj["subCat"] = "";
     }
 
-    console.log(modalData)
+    // console.log(modalData)
 
     subjectRow == undefined ?
       setModalData(initialVal)
@@ -75,8 +80,8 @@ function SubjectTable(props: any) {
   }
 
   useEffect(() => {
-    setModal(true);
-  }, [modalData])
+    count > 0 && setModal(true);
+  }, [count])
 
 
 

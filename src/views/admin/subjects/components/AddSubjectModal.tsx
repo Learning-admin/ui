@@ -26,7 +26,7 @@ const AddSubjectModal = (props: any) => {
     }
 
     const popHandler = (ele: any) => {
-        console.log(ele)
+        // console.log(ele)
         setModalData((prev: any) => {
             let arr = prev.subCatObj;
             let filterarr = arr.filter((d: any) => d.id != ele.id)

@@ -6,12 +6,11 @@ import { BsThreeDots, BsThreeDotsVertical } from 'react-icons/bs'
 import { MdAdd, MdCheck, MdClose, MdDelete, MdEdit, MdOutlinePendingActions } from 'react-icons/md'
 
 
-
 const StudentData = (props: any) => {
     const { tableData, handleCreate } = props
     const [open, setOpen] = React.useState(false);
     const transparent = false
-    console.log(tableData)
+    // console.log(tableData)
     return (
         <>
             <Card extra={"w-full pb-10 p-4 h-full"}>

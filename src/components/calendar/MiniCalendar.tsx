@@ -8,6 +8,8 @@ import "assets/css/MiniCalendar.css";
 const MiniCalendar = () => {
   const [value, onChange] = useState(new Date());
 
+  // console.log(value)
+
   return (
     <div>
       <Card extra="flex w-full h-full flex-col px-3 py-3">
