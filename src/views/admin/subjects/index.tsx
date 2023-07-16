@@ -3,7 +3,6 @@ import subjectData from './data/subjectData'
 import SubjectTable from './components/SubjectTable'
 import { axiosGet } from "services/axiosService";
 import { ToastContainer, toast } from 'react-toastify';
-
 import '../../../assets/css/Subjects.css'
 
 const Subjects = () => {
