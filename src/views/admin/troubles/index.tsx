@@ -105,10 +105,15 @@ const Troubles = () => {
 
         let pgs = parseInt(count) / parseInt(pageObj.pageSize);
 
+
         let arr = [];
 
         for (let i = 1; i <= pgs; i++) {
           arr.push(i);
+        }
+
+        if (pgs > arr[arr.length - 1]) {
+          arr.push(arr[arr.length - 1] + 1)
         }
 
         setTroublesDataPages(arr);

@@ -14,7 +14,6 @@ const TroubleViewPopup = (props: any) => {
     } = props;
 
 
-    console.log(troubleRowData)
 
     const obj: any = {
         "TicketId": "ticketId",
