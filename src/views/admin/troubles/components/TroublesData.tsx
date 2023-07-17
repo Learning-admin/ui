@@ -2,16 +2,33 @@
 import Card from 'components/card'
 import moment from 'moment'
 import { MdAdd, MdCheck, MdClose, MdDelete, MdEdit, MdOutlinePendingActions } from 'react-icons/md'
+import { AiOutlineEye } from "react-icons/ai";
+import { useEffect, useState } from 'react';
 
 
 const TroublesData = (props: any) => {
     const { troublesData, troubleTypes, troubleTypesObj, priority,
         priorityObj, status,
-        statusObj, setTroubleModal } = props;
+        statusObj, setTroubleModal, setTroublePopup,
+        setTroubleRowData, troubleRowData, troublesDataPages, setPageObj } = props;
+
 
     const modelHandler = () => {
         setTroubleModal(true);
     }
+
+    const onClickHandler = (trouble: any, type: any) => {
+
+        let troubleData = trouble;
+        troubleData["type"] = type;
+        setTroubleRowData(troubleData);
+    }
+
+
+    useEffect(() => {
+        setTroublePopup(troubleRowData.type);
+    }, [troubleRowData])
+
 
     return (
         <div>        <Card extra={"w-full pb-10 p-4 h-full"}>
@@ -126,11 +143,18 @@ const TroublesData = (props: any) => {
                                             <p className="text-sm font-bold text-navy-700">{trouble?.notes}</p>
                                         </td>
                                         <td className="min-w-[110px] border-white/0 py-3  pr-4 flex justify-center">
+
                                             <div
-                                                // onClick={() => { modelHandler(menu); }}
+                                                onClick={() => { onClickHandler(trouble, "view"); }}
+                                                className="flex items-center gap-3 justify-center cursor-pointer p-2 text-[#007bff] hover:bg-gray-100 w-10 h-10 rounded-lg">
+                                                <AiOutlineEye />
+                                            </div>
+                                            <div
+                                                onClick={() => { onClickHandler(trouble, "edit"); }}
                                                 className="flex items-center gap-3 justify-center cursor-pointer p-2 text-[#007bff] hover:bg-gray-100 w-10 h-10 rounded-lg">
                                                 <MdEdit />
                                             </div>
+
                                         </td>
                                     </tr>
                                 )
@@ -140,6 +164,10 @@ const TroublesData = (props: any) => {
                     </tbody>
                 </table>
             </div>
+            <div className='col-md-12' >
+                <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: prev.page > 1 ? prev.page - 1 : 1 })) }} >{"Previous  "}</span>
+                {troublesDataPages.map((d: any, i: number) => <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: d })) }} key={i}>{d + "  "}</span>)}
+                <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: prev.page < troublesDataPages[troublesDataPages.length - 1] ? prev.page + 1 : troublesDataPages[troublesDataPages.length - 1] })) }} >{"Next"}</span></div>
         </Card ></div>
     )
 }

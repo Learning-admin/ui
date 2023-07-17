@@ -3,12 +3,42 @@ import { axiosGet } from 'services/axiosService'
 import TroubleModal from './components/TroubleModal'
 import TroublesData from './components/TroublesData'
 import "../../../assets/css/Troubles.css"
+import TroubleViewPopup from './components/TroubleViewPopup'
+import TroubleEditPopup from './components/TroubleEditPopup'
 
 const Troubles = () => {
 
   const [troublesData, setTroublesData] = useState<any>([])
   const [troubleModal, setTroubleModal] = useState<boolean>(false);
-  const [troubleModalData, setTroubleModalData] = useState<any>([])
+  const [troubleModalData, setTroubleModalData] = useState<any>([]);
+  const [troublePopup, setTroublePopup] = useState<string>("");
+
+  const [troublesDataCount, setTroublesDataCount] = useState<number>(0);
+  const [troublesDataPages, setTroublesDataPages] = useState<any>([])
+
+
+
+  const intitialTroubleDtObj: any = {
+    "priority": -1,
+    "status": -1,
+    "requestType": -1,
+    "_id": "",
+    "order": null,
+    "user": {
+      "_id": "",
+      "firstName": "",
+      "lastName": "",
+      "fullName": ""
+    },
+    "notes": "",
+    "createdBy": "",
+    "createdAt": "",
+    "updatedAt": "",
+    "ticketId": -1,
+    "__v": -1
+  }
+
+  const [troubleRowData, setTroubleRowData] = useState<any>(intitialTroubleDtObj)
 
   const pageInitialVal = {
     pageSize: 5,
@@ -69,7 +99,21 @@ const Troubles = () => {
     axiosGet(`ticket/?page=${pageObj.page}&pageSize=${pageObj.pageSize}`)
       .then(res => {
         let resp = res.data.data;
+        let count = res.data.total
         setTroublesData(resp);
+        setTroublesDataCount(count);
+
+        let pgs = parseInt(count) / parseInt(pageObj.pageSize);
+
+        let arr = [];
+
+        for (let i = 1; i <= pgs; i++) {
+          arr.push(i);
+        }
+
+        setTroublesDataPages(arr);
+
+
       })
       .catch(err => console.log(err))
   }
@@ -105,6 +149,34 @@ const Troubles = () => {
         // initialVal={initialVal}
         />}
 
+      {troublePopup == "view" &&
+        <TroubleViewPopup
+          troublePopup={troublePopup}
+          setTroublePopup={setTroublePopup}
+          troubleRowData={troubleRowData}
+          troubleTypesObj={troubleTypesObj}
+          priorityObj={priorityObj}
+          statusObj={statusObj}
+          intitialTroubleDtObj={intitialTroubleDtObj}
+          setTroubleRowData={setTroubleRowData}
+
+        />
+      }
+
+
+      {troublePopup == "edit" &&
+        <TroubleEditPopup
+          troublePopup={troublePopup}
+          setTroublePopup={setTroublePopup}
+          troubleRowData={troubleRowData}
+          intitialTroubleDtObj={intitialTroubleDtObj}
+          setTroubleRowData={setTroubleRowData}
+          status={status}
+
+        />
+      }
+
+
       <TroublesData
         troublesData={troublesData}
         troubleTypes={troubleTypes}
@@ -115,6 +187,12 @@ const Troubles = () => {
         statusObj={statusObj}
         studentData={studentData}
         setTroubleModal={setTroubleModal}
+        setTroublePopup={setTroublePopup}
+        setTroubleRowData={setTroubleRowData}
+        troubleRowData={troubleRowData}
+        troublesDataCount={troublesDataCount}
+        troublesDataPages={troublesDataPages}
+        setPageObj={setPageObj}
       />
     </div>
   )
