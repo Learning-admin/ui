@@ -1,0 +1,11 @@
+.aterisk{
+    color: red;
+}
+.pagination{
+    font-size: 18px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+.textAlignRight{
+    text-align: right;
+}
