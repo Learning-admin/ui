@@ -6,6 +6,7 @@ import CreatePopUp from './CreatePopup';
 import Dropdown from 'components/dropdown';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { AiOutlineClockCircle } from 'react-icons/ai';
+import Pagination from '../../../../components/pagination/index';
 
 
 
@@ -198,7 +199,10 @@ const TeacherData = (props: any) => {
                         })}
                     </tbody>
                 </table>
+                
+                <Pagination/>
             </div>
+            
         </Card >
     </>
     )

@@ -39,9 +39,9 @@ const EventManagement = () => {
     <div className="w-100 mt-5 grid h-full gap-5">
       <ToastContainer />
       {/* <ColumnsTable tableData={tableDataColumns} /> */}
-      {/* <Events tableData={events} /> */}
+      <Events tableData={events} />
       {/* <MiniCalendar/> */}
-      {/* <LineChart/> */}
+
     </div>
   )
 }
