@@ -104,18 +104,20 @@ function SubjectTable(props: any) {
             Subject List
           </div>
           {/* <CardMenu transparent={false} data={'create'}/> */}
-          <button className="linear flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
-            onClick={handleCreate}>
-            <MdAdd className="h-6 w-6" />Add Subject
-          </button>
-          <select id="roles" className='wid inputField'
-            onChange={(e) => { setSubjectTypeSelected(e.target.value) }}
-          // {...register("gender")} 
-          >
-            {
-              subjectType.map((ele, i) => <option key={i} value={ele.value}>{ele.label}</option>)
-            }
-          </select>
+          <div className="displayFlex">
+            <button className="btnPosition linear flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+              onClick={handleCreate}>
+              <MdAdd className="h-6 w-6" />Add Subject
+            </button>
+            <select id="roles" className='ml5 inputField'
+              onChange={(e) => { setSubjectTypeSelected(e.target.value) }}
+            // {...register("gender")} 
+            >
+              {
+                subjectType.map((ele, i) => <option key={i} value={ele.value}>{ele.label}</option>)
+              }
+            </select>
+          </div>
         </header>
 
         <div className="mt-8 overflow-x-scroll xl:overflow-x-hidden">

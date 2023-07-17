@@ -13,3 +13,11 @@
 .textWidth{
     width : 80%
 }
+
+.ml5{
+    margin-left:5px;
+}
+.btnPosition{
+    height: 49px;
+    margin-top: 10px;
+}
