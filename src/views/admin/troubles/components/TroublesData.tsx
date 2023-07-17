@@ -163,11 +163,12 @@ const TroublesData = (props: any) => {
 
                     </tbody>
                 </table>
+                <div className='textAlignRight col-md-12' >
+                    <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: prev.page > 1 ? prev.page - 1 : 1 })) }} >{"Previous  "}</span>
+                    {troublesDataPages.map((d: any, i: number) => <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: d })) }} key={i}>{d + "  "}</span>)}
+                    <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: prev.page < troublesDataPages[troublesDataPages.length - 1] ? prev.page + 1 : troublesDataPages[troublesDataPages.length - 1] })) }} >{"Next"}</span></div>
             </div>
-            <div className='col-md-12' >
-                <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: prev.page > 1 ? prev.page - 1 : 1 })) }} >{"Previous  "}</span>
-                {troublesDataPages.map((d: any, i: number) => <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: d })) }} key={i}>{d + "  "}</span>)}
-                <span className='pagination' onClick={() => { setPageObj((prev: any) => ({ ...prev, ["page"]: prev.page < troublesDataPages[troublesDataPages.length - 1] ? prev.page + 1 : troublesDataPages[troublesDataPages.length - 1] })) }} >{"Next"}</span></div>
+
         </Card ></div>
     )
 }
