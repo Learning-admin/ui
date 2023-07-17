@@ -1,39 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Card from "components/card";
-import { MdAdd, MdCheck, MdClose, MdDelete, MdEdit, MdOutlinePendingActions } from 'react-icons/md'
-
-
-import {
-    createColumnHelper,
-    flexRender,
-    getCoreRowModel,
-    getSortedRowModel,
-    SortingState,
-    useReactTable,
-} from "@tanstack/react-table";
 import AddAssignmentModal from "./AddAssignmentModal";
 
-type RowObj = {
-    name: string;
-    examType: string;
-    plan: string;
-    hours: string;
-    available: string;
-    student: string,
-    date: string,
-    actions: any
-};
+
 
 function AssignmentTable(props:any){
   const{
       tableData,
-      assignmentTypeSelected,
-      setAssignmentTypeSelected,
       modalData,
       setModalData,
       initialVal
     } = props;
-  const [sorting, setSorting] = useState<SortingState>([]);
   const [modal, setModal] = useState<boolean>(false);
 
 
@@ -45,16 +22,13 @@ function AssignmentTable(props:any){
     { value: "default", label: "Default" }
   ]
 
-  let defaultData = tableData;
-
-  const [data, setData] = React.useState(() => [...defaultData]);
 
 
 
-  const handleCreate = (subjectRow: any) => {
+  const handleCreate = (assignmentRow: any) => {
     let obj = null;
-    if (subjectRow != undefined) {
-      obj = { ...subjectRow };
+    if (assignmentRow != undefined) {
+      obj = { ...assignmentRow };
 
       let innerObj: any = []
 
@@ -68,7 +42,7 @@ function AssignmentTable(props:any){
 
     console.log(modalData)
 
-    subjectRow == undefined ?
+    assignmentRow == undefined ?
       setModalData(initialVal)
       : setModalData(obj);
   }
@@ -132,12 +106,6 @@ function AssignmentTable(props:any){
                     TESTPAPER
                   </div>
                 </th>
-                {/* <th
-                            className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
-                            <div className="items-center justify-between text-sm font-bold text-gray-600">
-                                1-1 (OR) SMALL GROUP
-                            </div>
-                        </th> */}
                 <th
                   className="cursor-pointer border-b-[1px] border-gray-200 pt-4 pb-2 pr-4 text-start">
                   <div className="items-center justify-between text-sm font-bold text-gray-600">
@@ -167,9 +135,6 @@ function AssignmentTable(props:any){
                       <td className="min-w-[110px] border-white/0 py-3  pr-4">
                         <p className='text-sm font-bold text-navy-700'>{assignment.entityType}</p>
                       </td>
-                      {/* <td className="min-w-[110px] border-white/0 py-3  pr-4">
-                                        <p className='text-sm font-bold text-navy-700'>{''}</p>
-                                    </td> */}
                       <td className="min-w-[110px] border-white/0 py-3  pr-4">
                         <p className="text-sm font-bold text-navy-700">{assignment.name}</p>
                       </td>
@@ -197,4 +162,3 @@ function AssignmentTable(props:any){
 }
 
 export default AssignmentTable;
-const columnHelper = createColumnHelper<RowObj>();

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import AssignmentData from './Data/AssignmentData';
 import AssignmentTable from './components/AssignmentTable';
 import { axiosGet } from "services/axiosService";
 import { ToastContainer, toast } from 'react-toastify';
