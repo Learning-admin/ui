@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { axiosGet } from 'services/axiosService'
+import TroubleModal from './components/TroubleModal'
 import TroublesData from './components/TroublesData'
+import "../../../assets/css/Troubles.css"
 
 const Troubles = () => {
 
   const [troublesData, setTroublesData] = useState<any>([])
+  const [troubleModal, setTroubleModal] = useState<boolean>(false);
+  const [troubleModalData, setTroubleModalData] = useState<any>([])
 
   const pageInitialVal = {
     pageSize: 5,
@@ -52,9 +56,12 @@ const Troubles = () => {
     statusObj[d.value] = d.label;
   })
 
+  const [studentData, setStudentData] = useState<any>([])
+
 
   useEffect(() => {
     troublesDataFnc();
+    getStudentList();
   }, [pageObj])
 
 
@@ -67,8 +74,37 @@ const Troubles = () => {
       .catch(err => console.log(err))
   }
 
+  const getStudentList = () => {
+    axiosGet(`student/getStudentList`)
+      .then(res => {
+        let resp = res.data;
+        setStudentData(resp);
+      })
+      .catch(err => console.log(err))
+  }
+
   return (
     <div>
+
+      {troubleModal &&
+        <TroubleModal
+          troubleModal={troubleModal}
+          setTroubleModal={setTroubleModal}
+          setTroubleModalData={setTroubleModalData}
+          troubleTypes={troubleTypes}
+          priority={priority}
+          studentData={studentData}
+
+
+        // setMenuModal={setMenuModal}
+        // modalData={modalData}
+        // handleSubmit={handleSubmit}
+        // errors={errors}
+        // addMenu={addMenu}
+        // setModalData={setModalData}
+        // initialVal={initialVal}
+        />}
+
       <TroublesData
         troublesData={troublesData}
         troubleTypes={troubleTypes}
@@ -77,6 +113,8 @@ const Troubles = () => {
         priorityObj={priorityObj}
         status={status}
         statusObj={statusObj}
+        studentData={studentData}
+        setTroubleModal={setTroubleModal}
       />
     </div>
   )

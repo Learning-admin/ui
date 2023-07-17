@@ -1,13 +1,17 @@
 
 import Card from 'components/card'
-import React from 'react'
+import moment from 'moment'
 import { MdAdd, MdCheck, MdClose, MdDelete, MdEdit, MdOutlinePendingActions } from 'react-icons/md'
 
 
 const TroublesData = (props: any) => {
     const { troublesData, troubleTypes, troubleTypesObj, priority,
         priorityObj, status,
-        statusObj } = props;
+        statusObj, setTroubleModal } = props;
+
+    const modelHandler = () => {
+        setTroubleModal(true);
+    }
 
     return (
         <div>        <Card extra={"w-full pb-10 p-4 h-full"}>
@@ -17,7 +21,7 @@ const TroublesData = (props: any) => {
                 </div>
                 {/* <CardMenu transparent={false} data={'create'}/> */}
                 <button className="linear flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
-                // onClick={modelHandler}
+                    onClick={modelHandler}
                 >
                     <MdAdd className="h-6 w-6" />Trouble Ticket
                 </button>
@@ -107,7 +111,7 @@ const TroublesData = (props: any) => {
                                             <p className="text-sm font-bold text-navy-700">{troubleTypesObj[trouble.requestType]}</p>
                                         </td>
                                         <td className="min-w-[110px] border-white/0 py-3  pr-4">
-                                            <p className="text-sm font-bold text-navy-700">{priorityObj[trouble.priority]}</p>
+                                            <p className="text-sm font-bold text-navy-700">{moment(trouble?.createdAt).format("DD-MMM-yyyy")}</p>
                                         </td>
                                         <td className="min-w-[110px] border-white/0 py-3  pr-4">
                                             <p className="text-sm font-bold text-navy-700">{priorityObj[trouble.priority]}</p>
