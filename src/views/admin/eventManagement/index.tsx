@@ -7,10 +7,11 @@ import { ToastContainer, toast } from 'react-toastify'
 import MiniCalendar from 'components/calendar/MiniCalendar'
 import LineChart from 'components/charts/LineAreaChart'
 import PieChart from 'components/charts/PieChart'
+import EventCalendar from './components/EventCalendar'
 
 const EventManagement = () => {
   const [events, setEvents] = useState<any>()
-  
+
 
   const getClasses = async () => {
     try {
@@ -33,7 +34,7 @@ const EventManagement = () => {
   }
   useEffect(() => {
     getClasses()
-    axiosGet('event/getBatches?page=1&pageSize=5').then(res=>console.log(res, 'batch')).catch(err=>console.log(err))
+    axiosGet('event/getBatches?page=1&pageSize=5').then(res => console.log(res, 'batch')).catch(err => console.log(err))
   }, [])
   return (
     <div className="w-100 mt-5 grid h-full gap-5">
@@ -41,6 +42,8 @@ const EventManagement = () => {
       {/* <ColumnsTable tableData={tableDataColumns} /> */}
       <Events tableData={events} />
       {/* <MiniCalendar/> */}
+
+      <EventCalendar />
 
     </div>
   )
