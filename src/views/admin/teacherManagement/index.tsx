@@ -88,13 +88,13 @@ const TeacherManagement = () => {
   }
   const addTeacher = async (data: any) => {
     console.log(data)
-    // try {
-    //   const response = await axiosPost("teacher/addTeacher", data)
-    //   console.log(response)
-    // }
-    // catch (err) {
-    //   console.log(err)
-    // }
+    try {
+      const response = await axiosPost("teacher/addTeacher", data)
+      console.log(response)
+    }
+    catch (err) {
+      console.log(err)
+    }
   }
   const handleActive = (id: string, isActive: boolean) => {
     axiosPut('teacher/updateTeacher',
