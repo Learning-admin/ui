@@ -41,7 +41,7 @@ const EventManagement = () => {
       <ToastContainer />
       {/* <ColumnsTable tableData={tableDataColumns} /> */}
       <Events tableData={events} />
-      <MiniCalendar/>
+      {/* <MiniCalendar/> */}
 
       <EventCalendar />
 
