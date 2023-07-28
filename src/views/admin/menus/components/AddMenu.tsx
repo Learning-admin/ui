@@ -1,7 +1,7 @@
 import Card from 'components/card'
 import InputField from 'components/fields/InputField';
 import LargeDropdown from 'components/largeDropdown';
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { MdClose } from 'react-icons/md';
 import { AiFillDelete } from "react-icons/ai";
 
@@ -17,6 +17,9 @@ const AddMenu = (props: any) => {
     } = props;
 
 
+    const ref: any = useRef({});
+
+    const [validatiionMsg, setValidatiionMsg] = useState<any>("")
 
     const rolesData = [
         { id: "", name: "<<Please Select>>" },
@@ -45,6 +48,33 @@ const AddMenu = (props: any) => {
         })
     }
 
+    const onSaveHandler = () => {
+        console.log(ref);
+
+        let final: any = [];
+
+        Object.keys(ref.current).forEach((d: any) => {
+            let a = ref.current[d]
+            if (a.value == "" && (ref.current[d].classList).contains("error-block") == false) {
+                ref.current[d].classList.add("error-block");
+                console.log(ref.current[d].classList);
+                final.push(false);
+            } else {
+                ref.current[d].classList.remove("error-block");
+                final.push(true);
+            }
+        })
+
+        console.log(final)
+
+        if (final.includes(false)) {
+            setValidatiionMsg(<div className='statusMsg'>{"Please Select Mandatory Fields"}</div>);
+            return;
+        }
+        setValidatiionMsg("");
+
+    }
+
     return (
         <div className="bg-[rgba(0,0,0,0.5)] w-screen h-screen overflow-y-hidden fixed top-0 right-0 z-50 flex items-center justify-center">
             <Card extra="w-auto h-auto p-6">
@@ -57,6 +87,7 @@ const AddMenu = (props: any) => {
                     />
                 </header>
                 <div>
+                    {validatiionMsg}
                     <form onSubmit={handleSubmit(addMenu)}>
                         <main className="mt-8 flex justify-between gap-10" >
                             <div className='flex flex-col'>
@@ -65,6 +96,9 @@ const AddMenu = (props: any) => {
                                     <input id="title" type="text" className='inputField'
                                         value={modalData?.title}
                                         onChange={(e) => { onChangeHandler(e) }}
+                                        ref={(ele: any) => {
+                                            ref.current[ele?.id] = ele;
+                                        }}
 
                                     // {...register("firstName")} 
                                     />
@@ -79,6 +113,9 @@ const AddMenu = (props: any) => {
                                     <input id="icon" type="text" className='inputField'
                                         onChange={(e) => { onChangeHandler(e) }}
                                         value={modalData?.icon}
+                                        ref={(ele: any) => {
+                                            ref.current[ele?.id] = ele;
+                                        }}
 
                                     // {...register("lastName")} 
                                     />
@@ -92,6 +129,9 @@ const AddMenu = (props: any) => {
                                         //  {...register("email")}
                                         onChange={(e) => { onChangeHandler(e) }}
                                         value={modalData?.externalLink}
+                                        ref={(ele: any) => {
+                                            ref.current[ele?.id] = ele;
+                                        }}
                                     />
                                     {/* {errors.email && <div className="text-red-500 text-sm">
                                         {errors.email.message}
@@ -101,10 +141,13 @@ const AddMenu = (props: any) => {
                                     <label className='inputLabel'>Roles</label>
                                     <select id="roles" className='inputField'
                                         onChange={(e) => { onChangeHandler(e) }}
+                                        ref={(ele: any) => {
+                                            ref.current[ele?.id] = ele;
+                                        }}
                                     // {...register("gender")} 
                                     >
                                         {
-                                            rolesData.map((ele, i) => <option key={i} value={ele.id}>{ele.name}</option>)
+                                            rolesData.map((ele, i) => <option key={i} value={ele?.id}>{ele.name}</option>)
                                         }
                                     </select>
                                     {/* {errors.qualification && <div className="text-red-500 text-sm">
@@ -128,7 +171,7 @@ const AddMenu = (props: any) => {
                             <button className=" ml5 linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
                                 Cancel
                             </button>
-                            <button type="submit" className="ml5 linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
+                            <button onClick={() => { onSaveHandler() }} type="submit" className="ml5 linear mt-4 flex items-center justify-center rounded-xl bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
                                 Save
                             </button>
                         </div>
