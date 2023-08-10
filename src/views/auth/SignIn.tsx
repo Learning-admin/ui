@@ -6,11 +6,13 @@ import { useNavigate } from "react-router-dom";
 import { signIn } from "services/authService";
 import { TailSpin } from 'react-loader-spinner'
 import Toast from "components/toast";
+import { useAuth } from "utils/AuthContext";
 
 // import { loginUser } from "features/auth/authAction";
 
 export default function SignIn() {
 
+  const { loginUser, user } = useAuth();
 
   const roles = ['Admin', 'Teacher', 'Student']
   const navigate = useNavigate()
@@ -31,31 +33,24 @@ export default function SignIn() {
 
 
   const handleLogin = async () => {
-    if(role === '--Select-role--' && !userName && !password) {
-      setValidation({state: 'error', errorMessage: `*Fields can't be empty`})
-      return 
+    if (role === '--Select-role--' && !userName && !password) {
+      setValidation({ state: 'error', errorMessage: `*Fields can't be empty` })
+      return
     }
-    if(!userName){
-      setValidation({state: 'error', errorMessage: `*Fields can't be empty`})
+    if (!userName) {
+      setValidation({ state: 'error', errorMessage: `*Fields can't be empty` })
     }
     setIsLoading(true)
     // if(!userName) setValidation({state: 'error', errorMessage: `*Username can't be empty`})
     // else if(!password) setValidation({state: 'error', errorMessage: `*Password can't be empty`})
-    try {
-      
-      const res = await signIn({ userName, role: role.toLowerCase(), password })
-      localStorage.setItem('currentUser', JSON.stringify(res.data))
-      localStorage.setItem('accessToken', res.data.accessToken)
-      setIsLoading(false)
-      if (res.data.role === 'admin') navigate('/admin')
-      setToast({ show: true, type: 'success', message: 'LoggedIn successfully' })
-    } catch (error: any) {
-      console.log(error?.message)
-      setIsLoading(false)
-      setToast({ show: true, type: 'error', message: error?.message })
-    }
+    loginUser({userName, role: role.toLowerCase(), password})
 
   }
+  useEffect(() => {
+    if (user) {
+      navigate('/admin')
+    }
+  }, [])
 
   return (
     <>

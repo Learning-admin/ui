@@ -137,14 +137,7 @@ const routes = [
     path: "profile",
     icon: <MdLayers className="h-6 w-6" />,
     component: <Troubles />,
-  },
-  {
-    name: "Sign In",
-    layout: "/auth",
-    path: "sign-in",
-    icon: "",
-    component: <SignIn />,
-  },
+  }
 
 ];
 export default routes;

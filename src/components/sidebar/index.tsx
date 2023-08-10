@@ -8,6 +8,7 @@ import studentRoutes from "AllRoutes/studentRoutes";
 import routes from "AllRoutes/routes"
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import logo from "../../assets/img/exam_prep_hub_logo.png"
 
 const Sidebar = (props: {
   open: boolean;
@@ -28,8 +29,6 @@ const Sidebar = (props: {
     if (route[1] === 'admin') setCurrentRoutes(routes)
     if (route[1] === 'student') setCurrentRoutes(studentRoutes)
 
-
-
   }, [])
 
   return (
@@ -44,9 +43,10 @@ const Sidebar = (props: {
         <HiX />
       </span>
 
-      <div className={`mx-[56px] mt-[50px] flex items-center`}>
+      <div className={`mx-[50px] mt-[30px] flex items-center`}>
         <div className="mt-1 ml-1 h-2.5 font-poppins text-[23px] font-bold uppercase text-navy-700 dark:text-white">
-          EXAM <span className="font-medium text-[#f6b024]">PREUPHUB</span>
+          {/* EXAM <span className="font-medium text-[#f6b024]">PREUPHUB</span> */}
+          <img src={logo} alt="" className="w-48"/>
         </div>
       </div>
       <div className="mt-[58px] mb-7 h-px bg-gray-300 dark:bg-white/30" />

@@ -5,23 +5,30 @@ import AdminLayout from "layouts/admin";
 import StudentLayout from "layouts/student";
 import AuthLayout from "layouts/auth";
 import { useEffect } from "react";
+import SignIn from "views/auth/SignIn";
+import NotFound from "./components/notFound/index"
+import { AuthProvider } from "utils/AuthContext";
 
 const App = () => {
-  const accessToken = localStorage.getItem('accessToken')
+  const currentUser = localStorage.getItem('currentUser')
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!accessToken) navigate('/auth/sign-in')
+    if (currentUser === null) navigate('/sign-in')
   }, [])
 
   return (
-    <Routes>
-      <Route path="auth/*" element={<AuthLayout />} />
-      <Route path="admin/*" element={<AdminLayout />} />
-      <Route path="student/*"  element={<StudentLayout/>}/>
-      <Route path="rtl/*" element={<RtlLayout />} />
-      <Route path="/" element={<Navigate to="/admin" replace />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="sign-in" element={<SignIn />} />
+
+        <Route path="admin/*" element={<AdminLayout />} />
+        <Route path="student/*" element={<StudentLayout />} />
+        <Route path="rtl/*" element={<RtlLayout />} />
+        <Route path="/" element={<Navigate to="/admin" replace />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AuthProvider>
   );
 };
 
