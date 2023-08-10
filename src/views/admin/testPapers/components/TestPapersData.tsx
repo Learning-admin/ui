@@ -46,7 +46,7 @@ const TestPapersData = (props: any) => {
                 <input type="text" placeholder='Search Teacher...' className='flex h-12 w-full items-center justify-center rounded-xl bg-white/0 p-3 text-sm outline-none' />
             </div>
             <button className="linear flex items-center justify-center rounded-lg bg-[#007bff] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#0069d9] active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
-                onClick={handleCreate}>
+                onClick={()=>setModal(true)}>
                 <MdAdd className="h-6 w-6" />Paper
             </button>
         </header>

@@ -10,7 +10,7 @@ import NotFound from "./components/notFound/index"
 import { AuthProvider } from "utils/AuthContext";
 
 const App = () => {
-  const currentUser = localStorage.getItem('currentUser')
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const navigate = useNavigate()
 
   useEffect(() => {
